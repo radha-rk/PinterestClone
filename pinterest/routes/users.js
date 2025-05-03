@@ -22,15 +22,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
-  dp: String, // Display picture URL
+  dp: String,
   post: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Pin' // Assuming your post/pin model is named 'Pin'
+      ref: 'Pin' 
     }
   ]
 })
-/* GET users listing. */
+
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
