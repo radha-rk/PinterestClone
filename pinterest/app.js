@@ -4,11 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const expressSession = require("express-session");
+const flash = require("connect-flash");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+const passport = require('passport');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +22,7 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: "hey ..........."
 }))
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(usersRouter.serializeUser());
@@ -48,5 +52,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+app.listen(3000, function () {
+  console.log("Server started on port 3000");
+});
+
 
 module.exports = app;
